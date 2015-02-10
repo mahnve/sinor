@@ -1,7 +1,7 @@
 # Sinor
 
-Sinor is a simple tool to convert blog content for static websites. It
-can:
+Sinor is a simple tool to convert blog content for static websites
+written in Python. It can:
 
 * Convert Markdown formatted posts into HTML using Mustache templates.
 * Generate Atom feeds from HTML files
@@ -35,6 +35,28 @@ sinor --type feed html1.html html2.html > atom.xml
 sinor --type archive --template template.mustache html1.html html2.html > output.html
 ```
 
+## sinor.toml Config File
+
+
+## Markdown and Metadata
+
+Sinor expects a few metadata fields in every Markdown file:
+
+* ```date``` - the date the post is published. 
+* ```title``` - the title of the post. 
+* ```draft``` (optional) - whether or not the post is to be rendered
+
+When rendering a archive, these are wrapped in a list called ```posts```
+
+## Templates and Metadata
+
+In addition to post data, Mustache templates are passed a hash of blog metadata:
+
+* ```year```
+* ```author```
+* ```blog_title```
+
+
 ## Using a Makefile
 
 I personally use a Makefile to generate my blog. In fact, I created
@@ -52,3 +74,7 @@ $(BUILD_DIR)/blog/%.html: site_src/blog/%.markdown $(TEMPLATE_FILES)
 	sinor --type single --template site_src/templates/blog.mustache $< > $@
 ```
 
+## Future Development
+
+Adding other formats than Markdown is quite easy as long as they
+support metadata. 
