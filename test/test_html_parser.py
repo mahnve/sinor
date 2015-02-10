@@ -1,4 +1,4 @@
-from headon import html_content
+from sinor import html_content
 from nose.tools import assert_equals
 
 

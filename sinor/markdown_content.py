@@ -1,5 +1,5 @@
 import markdown
-import file_util
+from sinor import file_util
 
 
 def single_meta_data_value(dictionary, key):

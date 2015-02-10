@@ -1,6 +1,7 @@
 import lxml.html
-import file_util
 from lxml import etree
+from sinor import file_util
+
 
 EMPTY_RESULT = {'title': '',
                 'date': '',

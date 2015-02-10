@@ -1,6 +1,4 @@
-import markdown_content
-import html_content
-import file_util
+from sinor import markdown_content, html_content, file_util
 from datetime import date
 import pystache
 import config

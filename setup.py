@@ -13,9 +13,9 @@ setup(description='HeadOn Blog',
       version='0.1',
       install_requires=[''],
       packages=[
-          'headon',
+          'sinor',
           'test'],
-      scripts=[],
+      scripts=['scripts/sinor'],
       name='sinor',
       tests_require=['nosetests'],
       cmdclass={'test': })

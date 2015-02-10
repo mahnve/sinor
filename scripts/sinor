@@ -2,9 +2,9 @@
 
 __author__ = 'mahnve'
 
-import feed
+from sinor import feed, posts
 import argparse
-import posts
+
 
 if(__name__ == "__main__"):
     parser = argparse.ArgumentParser(description="Parse generator args")

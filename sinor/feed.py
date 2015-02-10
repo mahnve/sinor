@@ -1,8 +1,8 @@
 from pyatom import AtomFeed
 from datetime import datetime
-from html_content import from_file
-from posts import sorted_posts, no_drafts
-import config
+from sinor.html_content import from_file
+from sinor.posts import sorted_posts, no_drafts
+from sinor import config
 import sys
 
 
