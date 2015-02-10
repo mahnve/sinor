@@ -37,6 +37,7 @@ sinor --type archive --template template.mustache html1.html html2.html > output
 
 ## sinor.toml Config File
 
+TBD
 
 ## Markdown and Metadata
 
@@ -52,9 +53,9 @@ When rendering a archive, these are wrapped in a list called ```posts```
 
 In addition to post data, Mustache templates are passed a hash of blog metadata:
 
-* ```year```
-* ```author```
-* ```blog_title```
+* ```year``` - The current year
+* ```author``` - The blog.author from the ```sinor.toml``` file
+* ```blog_title``` - the blog.title from the ```sinor.toml``` file
 
 
 ## Using a Makefile
