@@ -37,9 +37,32 @@ sinor --type feed html1.html html2.html > atom.xml
 sinor --type archive --template template.mustache html1.html html2.html > output.html
 ```
 
-## sinor.toml Config File
+## sinor.toml Config
 
-TBD
+sinor expects a ```sinor.toml``` file in the directory from which
+sinor is called.
+
+
+Example file: (All fields are mandatory as of now)
+
+```toml
+[blog]
+url="http://www.foo.org"
+author="Foo Bar"
+title="The Title"
+subtitle="A truly astounding blog"
+date_format="%Y-%m-%d"
+
+[build]
+output_dir="build"
+templates_dir="site_src/templates"
+
+[posts]
+base_path="/blog"
+
+[feed]
+path="/blog/feed"
+```
 
 ## Markdown and Metadata
 
