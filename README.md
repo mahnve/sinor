@@ -1,5 +1,7 @@
 # Sinor
 
+[![Circle CI](https://circleci.com/gh/mahnve/sinor.svg?style=svg)](https://circleci.com/gh/mahnve/sinor)
+
 Sinor is a simple tool to convert blog content for static websites
 written in Python. It can:
 
