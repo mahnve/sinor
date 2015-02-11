@@ -72,9 +72,19 @@ Sinor expects a few metadata fields in every Markdown file:
 * ```title``` - the title of the post. 
 * ```draft``` (optional) - whether or not the post is to be rendered
 
-When rendering a archive, these are wrapped in a list called ```posts```
+### Example
+
+```Markdown
+date: 2014-01-10
+title: Agile Smurfing
+---
+
+A really good blog post ...
+```
 
 ## Templates and Metadata
+
+Sinor uses Mustache for templating. 
 
 In addition to post data, Mustache templates are passed a hash of blog metadata:
 
@@ -82,6 +92,30 @@ In addition to post data, Mustache templates are passed a hash of blog metadata:
 * ```author``` - The blog.author from the ```sinor.toml``` file
 * ```blog_title``` - the blog.title from the ```sinor.toml``` file
 
+Example template for single post page:
+
+```Mustache
+<div class='item-details'>
+  <h1 id="post-title" class='post-title'>{{title}}</h1>
+  <h2 class='post-info'><time id="post-date">{{date}}</time></h2>
+</div>
+<div id="post-content" class='item-content'>
+  {{{content}}}
+</div>
+```
+
+Example template for archive post page:
+
+```Mustache
+<ol>
+  {{#posts}}
+    <li>
+      <date>{{date}}</date>
+      <a href="{{relative_url}}">{{title}}</a>
+    </li>
+  {{/posts}}
+</ol>
+```
 
 ## Using a Makefile
 
