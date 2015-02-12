@@ -3,16 +3,16 @@
 [![Circle CI](https://circleci.com/gh/mahnve/sinor.svg?style=svg)](https://circleci.com/gh/mahnve/sinor)
 
 Sinor is a simple tool to convert blog content for static websites
-written in Python. It can:
+written in Python. It can
 
-* Convert Markdown formatted posts into HTML using Mustache templates.
-* Generate Atom feeds from HTML files
-* Generate link archives from HTML files
-* Convert mustache files to html
+1. Convert Markdown formatted posts into HTML using Mustache templates.
+2. Generate Atom feeds from HTML files
+3. Generate link archives from HTML files
+4. Convert mustache files to HTML
 
-Sinor is built to scratch my own itch as to how I want my own blog to
+I wrote Sinor o scratch my own itch as to how I want my own blog to
 be built. In general, I have found other tools quite intrusive and
-doing too much. Sinor is not enough in itself to build a static
+doing too much. Sinor is in itself not enough to build a static
 website. You will need a build tool to automate things, I suggest
 make.
 
@@ -20,22 +20,111 @@ Sinor does not have any preference on how you organize your
 posts, if you use a CSS generation framework or where you should put
 static content, should you have it.
 
-## Quickstart
+## Installation
 
-### Convert a Markdown post
+### Stable
+
+TODO
+
+### Get the latest
+
+```shell
+pip install git+git://github.com/mahnve/sinor.git
+```
+
+## Convert a Markdown post
+
 ```shell
 sinor --type single --template template.mustache input.markdown > output.html
 ```
 
-### Convert html files to atom feed
+### Metadata
+
+Sinor expects a few metadata fields in every Markdown file:
+
+* ```date``` - the date the post is published.
+* ```title``` - the title of the post.
+* ```draft``` (optional) - whether or not the post is to be rendered
+
+#### Example
+
+```Markdown
+date: 2014-01-10
+title: Agile Smurfing
+---
+
+A really good blog post ...
+```
+
+### Templates and Metadata
+
+Sinor uses Mustache for templating.
+
+In addition to post data described earlier, Mustache templates are passed a hash of blog metadata:
+
+* ```year``` - The current year
+* ```author``` - The blog.author from the ```sinor.toml``` file
+* ```blog_title``` - the blog.title from the ```sinor.toml``` file
+
+Example template for single post page:
+
+```mustache
+<div class='item-details'>
+  <h1 id="post-title" class='post-title'>{{title}}</h1>
+  <h2 class='post-info'><time id="post-date">{{date}}</time></h2>
+</div>
+<div id="post-content" class='item-content'>
+  {{{content}}}
+</div>
+```
+
+## Convert html files to atom feed
 ```shell
 sinor --type feed html1.html html2.html > atom.xml
 ```
 
-### Convert html files to archive
+Sinor generates atom feeds from HTML files. In order to extract metadata from the HTML some id's must be declared:
+
+* ```post-date```
+* ```post-title```
+* ```post-content```
+
+### Example HTML file that can be parsed to atom feed
+
+```html
+<header>
+  <h1 id="post-title" class='post-title'>Agile Smurfing</h1>
+  <h2 class='post-info'><time id="post-date">2014-01-10</time></h2>
+</header>
+<article id="post-content">
+  <p>Recently ... </p
+</article>
+```
+
+## Convert html files to archive
 ```
 sinor --type archive --template template.mustache html1.html html2.html > output.html
 ```
+
+Sinor generates archive files just like it does atom feeds - by parsing HTML. The same id's must be declared etc.
+
+### Example template for archive post page:
+
+```Mustache
+<ol>
+  {{#posts}}
+    <li>
+      <date>{{date}}</date>
+      <a href="{{relative_url}}">{{title}}</a>
+    </li>
+  {{/posts}}
+</ol>
+```
+
+## Convert Mustache files
+
+Sinor can convert Mustache files into HTML - and passes the standard metadata described above into the templates.
+
 
 ## sinor.toml Config
 
@@ -64,58 +153,6 @@ base_path="/blog"
 path="/blog/feed"
 ```
 
-## Markdown and Metadata
-
-Sinor expects a few metadata fields in every Markdown file:
-
-* ```date``` - the date the post is published. 
-* ```title``` - the title of the post. 
-* ```draft``` (optional) - whether or not the post is to be rendered
-
-### Example
-
-```Markdown
-date: 2014-01-10
-title: Agile Smurfing
----
-
-A really good blog post ...
-```
-
-## Templates and Metadata
-
-Sinor uses Mustache for templating. 
-
-In addition to post data, Mustache templates are passed a hash of blog metadata:
-
-* ```year``` - The current year
-* ```author``` - The blog.author from the ```sinor.toml``` file
-* ```blog_title``` - the blog.title from the ```sinor.toml``` file
-
-Example template for single post page:
-
-```Mustache
-<div class='item-details'>
-  <h1 id="post-title" class='post-title'>{{title}}</h1>
-  <h2 class='post-info'><time id="post-date">{{date}}</time></h2>
-</div>
-<div id="post-content" class='item-content'>
-  {{{content}}}
-</div>
-```
-
-Example template for archive post page:
-
-```Mustache
-<ol>
-  {{#posts}}
-    <li>
-      <date>{{date}}</date>
-      <a href="{{relative_url}}">{{title}}</a>
-    </li>
-  {{/posts}}
-</ol>
-```
 
 ## Using a Makefile
 
