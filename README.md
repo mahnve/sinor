@@ -10,7 +10,7 @@ written in Python. It can
 3. Generate link archives from HTML files
 4. Convert mustache files to HTML
 
-I wrote Sinor o scratch my own itch as to how I want my own blog to
+I wrote Sinor to scratch my own itch as to how I want my own blog to
 be built. In general, I have found other tools quite intrusive and
 doing too much. Sinor is in itself not enough to build a static
 website. You will need a build tool to automate things, I suggest
@@ -49,8 +49,8 @@ Sinor expects a few metadata fields in every Markdown file:
 #### Example
 
 ```Markdown
-date: 2014-01-10
-title: Agile Smurfing
+date: 2014-01-01
+title: A Great Post
 ---
 
 A really good blog post ...
@@ -60,7 +60,7 @@ A really good blog post ...
 
 Sinor uses Mustache for templating.
 
-In addition to post data described earlier, Mustache templates are passed a hash of blog metadata:
+In addition to post data described earlier, Mustache templates are passed a hash of blog meta data:
 
 * ```year``` - The current year
 * ```author``` - The blog.author from the ```sinor.toml``` file
@@ -78,12 +78,12 @@ Example template for single post page:
 </div>
 ```
 
-## Convert html files to atom feed
+## Convert HTML files to atom feed
 ```shell
 sinor --type feed html1.html html2.html > atom.xml
 ```
 
-Sinor generates atom feeds from HTML files. In order to extract metadata from the HTML some id's must be declared:
+Sinor generates atom feeds from HTML files. In order to extract meta data from the HTML some id's must be declared:
 
 * ```post-date```
 * ```post-title```
@@ -101,7 +101,7 @@ Sinor generates atom feeds from HTML files. In order to extract metadata from th
 </article>
 ```
 
-## Convert html files to archive
+## Convert HTML files to archive
 ```
 sinor --type archive --template template.mustache html1.html html2.html > output.html
 ```
@@ -123,7 +123,7 @@ Sinor generates archive files just like it does atom feeds - by parsing HTML. Th
 
 ## Convert Mustache files
 
-Sinor can convert Mustache files into HTML - and passes the standard metadata described above into the templates.
+Sinor can convert Mustache files into HTML - and passes the standard meta data described above into the templates.
 
 
 ## sinor.toml Config
@@ -158,7 +158,7 @@ path="/blog/feed"
 
 I personally use a Makefile to generate my blog. In fact, I created
 Sinors API by writing the Makefile as I wanted it to look, and then
-implemented Sinor to fullfill that API.
+implemented Sinor to full fill that API.
 
 Example Makefile usage:
 
@@ -174,4 +174,4 @@ $(BUILD_DIR)/blog/%.html: site_src/blog/%.markdown $(TEMPLATE_FILES)
 ## Future Development
 
 Adding other formats than Markdown is quite easy as long as they
-support metadata. 
+support meta data.
