@@ -94,6 +94,8 @@ Sinor generates atom feeds from HTML files. In order to extract meta data from t
 * ```post-title```
 * ```post-content```
 
+URL's are generated from the filepath, using ```blog.url`` and ```build.output_dir``` from the config file.
+
 Example HTML file that can be parsed to atom feed
 
 ```html
@@ -114,7 +116,9 @@ Syntax:
 sinor --type archive --template template.mustache html1.html html2.html > output.html
 ```
 
-Sinor generates archive files just like it does atom feeds - by parsing HTML. The same id's must be declared etc.
+Sinor generates archive files just like it does atom feeds - by parsing HTML. The same id's must be declared etc. URL's are generated the same way to.
+
+The mustache template is given a map named ```posts``` which is used to generate the output.
 
 Example template for archive post page:
 
@@ -133,6 +137,11 @@ Example template for archive post page:
 
 Sinor can convert Mustache files into HTML - and passes the standard meta data described above into the templates.
 
+Example:
+
+```shell
+
+sinor --type mustache --template template.mustache > out.html
 
 ## sinor.toml Config
 
