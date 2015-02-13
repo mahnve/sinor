@@ -46,7 +46,7 @@ Sinor expects a few metadata fields in every Markdown file:
 * ```title``` - the title of the post.
 * ```draft``` (optional) - whether or not the post is to be rendered
 
-#### Example
+Example:
 
 ```Markdown
 date: 2014-01-01
@@ -89,7 +89,7 @@ Sinor generates atom feeds from HTML files. In order to extract meta data from t
 * ```post-title```
 * ```post-content```
 
-### Example HTML file that can be parsed to atom feed
+Example HTML file that can be parsed to atom feed
 
 ```html
 <header>
@@ -108,7 +108,7 @@ sinor --type archive --template template.mustache html1.html html2.html > output
 
 Sinor generates archive files just like it does atom feeds - by parsing HTML. The same id's must be declared etc.
 
-### Example template for archive post page:
+Example template for archive post page:
 
 ```Mustache
 <ol>
