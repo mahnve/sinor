@@ -62,7 +62,7 @@ A really good blog post ...
 
 Sinor uses Mustache for templating.
 
-In addition to post data described earlier, Mustache templates are passed a hash of blog meta data:
+In addition to post data described earlier, Mustache templates are passed a map of blog meta data:
 
 * ```year``` - The current year
 * ```author``` - The blog.author from the ```sinor.toml``` file
