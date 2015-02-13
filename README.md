@@ -34,6 +34,8 @@ pip install git+git://github.com/mahnve/sinor.git
 
 ## Convert a Markdown post
 
+Syntax:
+
 ```shell
 sinor --type single --template template.mustache input.markdown > output.html
 ```
@@ -79,6 +81,9 @@ Example template for single post page:
 ```
 
 ## Convert HTML files to atom feed
+
+Syntax:
+
 ```shell
 sinor --type feed html1.html html2.html > atom.xml
 ```
@@ -102,6 +107,9 @@ Example HTML file that can be parsed to atom feed
 ```
 
 ## Convert HTML files to archive
+
+Syntax:
+
 ```
 sinor --type archive --template template.mustache html1.html html2.html > output.html
 ```
