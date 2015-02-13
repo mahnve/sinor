@@ -94,7 +94,8 @@ Sinor generates atom feeds from HTML files. In order to extract meta data from t
 * ```post-title```
 * ```post-content```
 
-URL's are generated from the filepath, using ```blog.url`` and ```build.output_dir``` from the config file.
+URL's are generated from the filepath, using ```blog.url``` and
+```build.output_dir``` from the config file.
 
 Example HTML file that can be parsed to atom feed
 
