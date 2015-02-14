@@ -114,7 +114,7 @@ Example HTML file that can be parsed to atom feed
 Syntax:
 
 ```
-sinor --type archive --template template.mustache html1.html html2.html > output.html
+sinor --type archive --limit 5 --template template.mustache html1.html html2.html > output.html
 ```
 
 Sinor generates archive files just like it does atom feeds - by parsing HTML. The same id's must be declared etc. URL's are generated the same way to.
@@ -155,7 +155,7 @@ Example file:
 ```toml
 [blog]
 url="http://www.foo.org"
-# Top url to site
+# Top url to site.
 
 author="Foo Bar"
 # Name of the author
@@ -176,7 +176,8 @@ output_dir="build"
 # where files are stored. That is the job of the build system.
 
 partials_dir="site_src/templates/partials"
-# Where to find Mustache partials
+# Where to find Mustache partials. Optional, will default to same dir
+# as template being rendered if not given
 
 [posts]
 base_path="/blog"

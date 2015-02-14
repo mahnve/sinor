@@ -2,6 +2,7 @@ from sinor import markdown_content, html_content, file_util
 from datetime import date
 import pystache
 import config
+from os.path import dirname
 
 
 def render_post_list(file_names, template, count):
@@ -18,7 +19,7 @@ def render_markdown_page(input_file, template_file):
 
 def render_mustache_page(template, content={}):
     template = file_util.read_file(template)
-    mustache_renderer = pystache.Renderer(search_dirs=config.build_partials_dir(),
+    mustache_renderer = pystache.Renderer(search_dirs=partials_dir(template),
                                           file_encoding="utf8")
     return mustache_renderer.render(template, common_data(content))
 
@@ -43,3 +44,10 @@ def common_data(to_merge={}):
                  'author': config.author(),
                  'blog_title': config.blog_title()},
                 **to_merge)
+
+
+def partials_dir(file_name):
+    if config.build_partials_dir() is '':
+        return dirname(file_name)
+    else:
+        return config.build_partials_dir()
