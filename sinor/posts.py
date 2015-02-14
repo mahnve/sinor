@@ -5,10 +5,16 @@ import config
 
 
 def render_post_list(file_names, template, count=0):
-    posts = no_drafts(sorted_posts(map(html_content.from_file, file_names)))
-    if(count > 0):
-        posts = posts[:count]
+    posts = limit(
+        no_drafts(
+            sorted_posts(map(html_content.from_file, file_names))), count)
     return render_mustache_page(template, {'posts': posts})
+
+
+def limit(list, count=0):
+    if(count < 1):
+        count = len(list)
+    return list[:count]
 
 
 def render_markdown_page(input_file, template_file):

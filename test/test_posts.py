@@ -1,8 +1,18 @@
 from nose.tools import assert_equals
-import sinor.posts
+from sinor import posts
 
 
 def test_draft():
     a = {'a': 1}
     b = {'draft': 1}
-    assert_equals(sinor.posts.no_drafts([a, b]), [a])
+    assert_equals(posts.no_drafts([a, b]), [a])
+
+
+def test_limit_count():
+    a = [0, 1, 2, 3, 4, 5]
+    assert_equals([0, 1, 2], posts.limit(a, 3))
+
+
+def test_limit_negative_count():
+    a = [0, 1, 2]
+    assert_equals(a, posts.limit(a, -1))
