@@ -141,7 +141,7 @@ Sinor can convert Mustache files into HTML - and passes the standard meta data d
 Example:
 
 ```shell
-sinor --type mustache --template template.mustache > out.html
+sinor --type mustache foo.mustache > out.html
 ```
 
 ## sinor.toml Config

@@ -21,13 +21,13 @@ def render_archive():
 
 
 def render_mustache():
-    print(posts.render_mustache_page(args.template).encode('utf_8'))
+    print(posts.render_mustache_page(args.content_files[0]).encode('utf_8'))
 
 if(__name__ == "__main__"):
     parser = argparse.ArgumentParser(
         description="A simple blog tool for static websites")
     parser.add_argument("--type",
-                        choices=['single', 'feed', 'archive'],
+                        choices=['single', 'feed', 'archive', 'mustache'],
                         default="single")
 
     parser.add_argument("--template",
