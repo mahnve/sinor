@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-
-__author__ = 'mahnve'
-
 from sinor import feed, posts
 import argparse
+
+__author__ = 'mahnve'
 
 
 def render_single():
@@ -17,7 +16,8 @@ def render_feed():
 
 def render_archive():
     print(posts.render_post_list(args.markdown_files,
-                                 args.template).encode('utf_8'))
+                                 args.template,
+                                 args.limit).encode('utf_8'))
 
 
 def render_mustache():
@@ -31,6 +31,9 @@ if(__name__ == "__main__"):
 
     parser.add_argument("--template",
                         help="Mustache template file")
+
+    parser.add_argument("--limit",
+                        help="How many posts to include ")
 
     parser.add_argument("markdown_files",
                         nargs='*',
