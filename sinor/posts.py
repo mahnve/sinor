@@ -18,7 +18,7 @@ def render_markdown_page(input_file, template_file):
 
 def render_mustache_page(template, content={}):
     template = file_util.read_file(template)
-    mustache_renderer = pystache.Renderer(search_dirs=config.build_templates_dir(),
+    mustache_renderer = pystache.Renderer(search_dirs=config.build_partials_dir(),
                                           file_encoding="utf8")
     return mustache_renderer.render(template, common_data(content))
 

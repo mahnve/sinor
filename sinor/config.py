@@ -58,8 +58,8 @@ def build_output_dir():
     return config['build']['output_dir']
 
 
-def build_templates_dir():
-    return config['build']['templates_dir']
+def build_partials_dir():
+    return config['build']['partials_dir']
 
 
 config = load_toml_file()

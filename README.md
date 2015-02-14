@@ -175,7 +175,7 @@ output_dir="build"
 # used for url generation and does not have anything to do
 # where files are stored. That is the job of the build system.
 
-templates_dir="site_src/templates"
+partials_dir="site_src/templates/partials"
 # Where partials are Mustache stored
 
 [posts]
