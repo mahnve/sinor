@@ -176,7 +176,7 @@ output_dir="build"
 # where files are stored. That is the job of the build system.
 
 partials_dir="site_src/templates/partials"
-# Where partials are Mustache stored
+# Where to find Mustache partials
 
 [posts]
 base_path="/blog"
