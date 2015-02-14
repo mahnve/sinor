@@ -150,25 +150,42 @@ sinor expects a ```sinor.toml``` file in the directory from which
 sinor is called.
 
 
-Example file: (All fields are mandatory as of now)
+Example file:
 
 ```toml
 [blog]
 url="http://www.foo.org"
+# Top url to site
+
 author="Foo Bar"
+# Name of the author
+
 title="The Title"
+# The title of the site
+
 subtitle="A truly astounding blog"
+# Subtitle of the site
+
 date_format="%Y-%m-%d"
+# How dates are formatted in metadata
 
 [build]
 output_dir="build"
+# Top level directory for build output. Note that this is
+# used for url generation and does not have anything to do
+# where files are stored. That is the job of the build system.
+
 templates_dir="site_src/templates"
+# Where partials are Mustache stored
 
 [posts]
 base_path="/blog"
+# Top level path where to find blog files when generating archives and
+# feeds
 
 [feed]
 path="/blog/feed"
+# URL for the feed file.
 ```
 
 
