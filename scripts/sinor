@@ -6,16 +6,16 @@ __author__ = 'mahnve'
 
 
 def render_single():
-    print(posts.render_markdown_page(args.markdown_files[0],
+    print(posts.render_markdown_page(args.content_files[0],
                                      args.template).encode('utf_8'))
 
 
 def render_feed():
-    print(feed.render_atom_feed(args.markdown_files).encode('utf_8'))
+    print(feed.render_atom_feed(args.content_files).encode('utf_8'))
 
 
 def render_archive():
-    print(posts.render_post_list(args.markdown_files,
+    print(posts.render_post_list(args.content_files,
                                  args.template,
                                  args.limit).encode('utf_8'))
 
@@ -24,20 +24,22 @@ def render_mustache():
     print(posts.render_mustache_page(args.template).encode('utf_8'))
 
 if(__name__ == "__main__"):
-    parser = argparse.ArgumentParser(description="Parse generator args")
+    parser = argparse.ArgumentParser(
+        description="A simple blog tool for static websites")
     parser.add_argument("--type",
-                        help="'single', 'feed' or 'archive'",
+                        choices=['single', 'feed', 'archive'],
                         default="single")
 
     parser.add_argument("--template",
                         help="Mustache template file")
 
     parser.add_argument("--limit",
-                        help="How many posts to include ")
+                        help="How many posts to include ",
+                        type=int)
 
-    parser.add_argument("markdown_files",
-                        nargs='*',
-                        help="Markdown file")
+    parser.add_argument("content_files",
+                        nargs='+',
+                        help="Content file[s], Markdown or HTML")
     args = parser.parse_args()
 
     commands = {'single': render_single,
