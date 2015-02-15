@@ -1,6 +1,6 @@
 from nose.tools import assert_equals
 from sinor import posts
-from sinor import config
+from sinor.config import config
 from mock import Mock
 
 

@@ -2,7 +2,7 @@ from pyatom import AtomFeed
 from datetime import datetime
 from sinor.html_content import from_file
 from sinor.posts import sorted_posts, no_drafts
-from sinor import config
+from sinor.config import config
 import sys
 
 

@@ -1,4 +1,4 @@
-from sinor import config
+from sinor.config import config
 import os
 
 

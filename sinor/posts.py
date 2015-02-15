@@ -1,7 +1,7 @@
 from sinor import markdown_content, html_content, file_util
 from datetime import date
 import pystache
-import config
+from sinor.config import config
 from os.path import dirname
 
 

@@ -1,68 +1,67 @@
 import toml
+from sys import exit
 
 
-def load_toml_file():
-    try:
-        return toml.load('sinor.toml')
-    except IOError:
-        print("Could not load sinor.toml file, expect a rough ride from here on")
+class Config:
 
+    _config_map = None
+    config_filename = ''
 
-def blog_url():
-    return config['blog']['url']
+    def blog_url(self):
+        return self.config_map()['blog']['url']
 
+    def feed_url(self):
+        return self.blog_url() + self.feed_path()
 
-def feed_url():
-    return blog_url() + feed_path()
+    def feed_path(self):
+        return self.config_map()['feed']['path']
 
+    def blog_title(self):
+        return self.config_map()['blog']['title']
 
-def feed_path():
-    return config['feed']['path']
+    def blog_date_format(self):
+        return self.config_map()['blog']['date_format']
 
+    def feed_title(self):
+        try:
+            return self.config_map()['feed']['title']
+        except (KeyError, TypeError):
+            return self.blog_title()
 
-def blog_title():
-    return config['blog']['title']
+    def feed_subtitle(self):
+        try:
+            return self.config_map()['feed']['subtitle']
+        except KeyError:
+            return self.blog_subtitle()
 
+    def blog_subtitle(self):
+        return self.config_map()['blog']['subtitle']
 
-def blog_date_format():
-    return config['blog']['date_format']
+    def author(self):
+        return self.config_map()['blog']['author']
 
+    def posts_base_path(self):
+        return self.config_map()['posts']['base_path']
 
-def feed_title():
-    try:
-        return config['feed']['title']
-    except (KeyError, TypeError):
-        return blog_title()
+    def build_output_dir(self):
+        return self.config_map()['build']['output_dir']
 
+    def build_partials_dir(self):
+        try:
+            return self.config_map()['build']['partials_dir']
+        except (KeyError, TypeError):
+            return ""
 
-def feed_subtitle():
-    try:
-        return config['feed']['subtitle']
-    except KeyError:
-        return blog_subtitle()
+    def load_toml_file(self):
+        try:
+            self._config_map = toml.load(self.config_filename)
+        except IOError:
+            print("Could not load sinor.toml file")
+            exit(1)
 
+    def config_map(self):
+        if self._config_map is None:
+            self.load_toml_file()
+        return self._config_map
 
-def blog_subtitle():
-    return config['blog']['subtitle']
-
-
-def author():
-    return config['blog']['author']
-
-
-def posts_base_path():
-    return config['posts']['base_path']
-
-
-def build_output_dir():
-    return config['build']['output_dir']
-
-
-def build_partials_dir():
-    try:
-        return config['build']['partials_dir']
-    except KeyError:
-        return ""
-
-
-config = load_toml_file()
+config = Config()
