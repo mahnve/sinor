@@ -5,7 +5,7 @@ from data_builder import HTMLContentBuilder
 
 def test_parse_empty_string():
     html = HTMLContentBuilder().build()
-    assert_equals(html_content.fronm_string(html), {'title': '',
+    assert_equals(html_content.from_string(html), {'title': '',
                                                    'date': '',
                                                    'content': '',
                                                    'status': ''})
@@ -28,15 +28,15 @@ def test_finds_post_content():
 
 
 def test_multihtml():
-    html = HTMLContentBuilder().with_title('Foo').with_post_date('2010-01-01').with_content('<p>Hej</p>').with_status('published').build()
+    html = HTMLContentBuilder().with_title('Foo').with_post_date('2010-01-01').with_content('<p>Hej</p>').with_draft_status().build()
     assert_equals(html_content.from_string(html),
                   {'content':
                    '<div id="post-content"><p>Hej</p></div>',
                    'title': 'Foo',
                    'date': '2010-01-01',
-                   'status': 'published'})
+                   'status': 'draft'})
 
 
 def test_draft():
-    html = HTMLContentBuilder().with_status('draft').build()
+    html = HTMLContentBuilder().with_draft_status().build()
     assert_equals(html_content.from_string(html)['status'], 'draft')

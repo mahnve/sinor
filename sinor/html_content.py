@@ -45,5 +45,13 @@ def from_string(html_string, to_return={}):
     to_return['title'] = get_text_value(html, 'post-title')
     to_return['date'] = get_text_value(html, 'post-date')
     to_return['content'] = get_sub_tree(html, 'post-content')
-    to_return['status'] = get_text_value(html, 'post-status')
+    to_return['status'] = status(html)
     return to_return
+
+
+def status(html):
+    xpath_expression = "//*[contains(@class, 'draft')]"
+    if len(html.xpath(xpath_expression)) == 0:
+        return 'published'
+    else:
+        return 'draft'
