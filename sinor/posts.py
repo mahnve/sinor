@@ -40,8 +40,8 @@ def no_drafts(posts):
 
 
 def is_not_draft(post):
-    if 'draft' in post:
-        return not post['draft'] in ('true', 'True', True)
+    if 'status' in post:
+        return post['status'] != 'draft'
     else:
         return True
 

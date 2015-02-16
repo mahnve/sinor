@@ -6,11 +6,9 @@ from data_builder import MarkdownPostBuilder
 
 
 def test_draft():
-    a = MarkdownPostBuilder().with_draft('true').build()
-    b = MarkdownPostBuilder().with_draft('True').build()
-    c = MarkdownPostBuilder().with_draft('false').build()
-    d = MarkdownPostBuilder().with_draft('').build()
-    assert_equals(posts.no_drafts([a, b, c, d]), [c, d])
+    a = MarkdownPostBuilder().with_status('draft').build()
+    b = MarkdownPostBuilder().with_status('published').build()
+    assert_equals(posts.no_drafts([a, b]), [b])
 
 
 def test_limit_count():

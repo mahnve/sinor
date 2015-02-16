@@ -2,7 +2,7 @@ class MarkdownPostBuilder:
 
     def __init__(self):
         self.content = 'Content not set'
-        self.draft = ''
+        self.status = ''
         self.title = 'Title not set'
         self.date = ''
 
@@ -10,8 +10,8 @@ class MarkdownPostBuilder:
         self.content = content
         return self
 
-    def with_draft(self, draft='false'):
-        self.draft = draft
+    def with_status(self, status):
+        self.status = status
         return self
 
     def with_title(self, title=''):
@@ -23,7 +23,7 @@ class MarkdownPostBuilder:
 
     def build(self):
         return {'content': self.content,
-                'draft': self.draft,
+                'status': self.status,
                 'date': self.date,
                 'title': self.title}
 
