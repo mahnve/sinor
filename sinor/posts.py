@@ -36,7 +36,14 @@ def limit(list, count=0):
 
 
 def no_drafts(posts):
-    return filter(lambda post: 'draft' not in post, posts)
+    return filter(is_not_draft, posts)
+
+
+def is_not_draft(post):
+    if 'draft' in post:
+        return not post['draft'] in ('true', 'True', True)
+    else:
+        return True
 
 
 def common_data(to_merge={}):

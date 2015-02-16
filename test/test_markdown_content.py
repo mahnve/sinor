@@ -18,3 +18,9 @@ def test_gets_content():
     assert_equals(markdown_content.from_string(
         "title: hej \n date: 2014-10-01 \n\n Hej")['content'],
                   "<p>Hej</p>")
+
+
+def test_gets_draft():
+    assert_equals(markdown_content.from_string(
+        "title: hej \n date: 2014-10-01 \ndraft: true\n\n Hej")['draft_status'],
+                  "draft")

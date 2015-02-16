@@ -35,13 +35,14 @@ class HTMLContentBuilder:
         self.draft = ''
         self.title = ''
         self.content = ''
+        self.status = ''
 
     def with_post_date(self, date):
         self.post_date = "<div id='post-date'>{}</div>".format(date)
         return self
 
-    def with_draft_state(self):
-        self.draft = 'draft'
+    def with_status(self, status):
+        self.status = "<div id='post-status'>{}</div>".format(status)
         return self
 
     def with_title(self, title):
@@ -53,5 +54,4 @@ class HTMLContentBuilder:
         return self
 
     def build(self):
-        return "<div class={}>{}{}{}</div>".format(self.draft, self.post_date,
-                                                   self.title, self.content)
+        return self.status + self.post_date + self.title + self.content

@@ -12,6 +12,13 @@ def from_file(content_file):
     return from_string(content)
 
 
+def draft_status(meta_data):
+    if single_meta_data_value(meta_data, 'draft') in ('true', 'True'):
+        return 'draft'
+    else:
+        return ''
+
+
 def from_string(content):
     md_converter = markdown.Markdown(extensions=['codehilite', 'meta'])
     html = md_converter.convert(content)
@@ -20,5 +27,5 @@ def from_string(content):
 
     return {'content': html,
             'title': single_meta_data_value(meta_data, 'title'),
-            'draft': single_meta_data_value(meta_data, 'draft'),
+            'draft_status': draft_status(meta_data),
             'date': single_meta_data_value(meta_data, 'date')}

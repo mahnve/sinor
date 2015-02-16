@@ -5,7 +5,8 @@ from sinor import file_util
 
 EMPTY_RESULT = {'title': '',
                 'date': '',
-                'content': ''}
+                'content': '',
+                'status': ''}
 
 
 def get_text_value(html, id_name):
@@ -44,5 +45,5 @@ def from_string(html_string, to_return={}):
     to_return['title'] = get_text_value(html, 'post-title')
     to_return['date'] = get_text_value(html, 'post-date')
     to_return['content'] = get_sub_tree(html, 'post-content')
-
+    to_return['status'] = get_text_value(html, 'post-status')
     return to_return
