@@ -16,7 +16,7 @@ def draft_status(meta_data):
     if single_meta_data_value(meta_data, 'draft') in ('true', 'True'):
         return 'draft'
     else:
-        return ''
+        return 'published'
 
 
 def from_string(content):
@@ -27,5 +27,5 @@ def from_string(content):
 
     return {'content': html,
             'title': single_meta_data_value(meta_data, 'title'),
-            'draft_status': draft_status(meta_data),
+            'status': draft_status(meta_data),
             'date': single_meta_data_value(meta_data, 'date')}
