@@ -4,19 +4,38 @@ import pystache
 from sinor.config import config
 from os.path import dirname
 from pyatom import AtomFeed
-from sinor.html_content import from_file
 import sys
 
 
-def render_atom_feed(files):
+def render_atom_feed(file_names, count=0):
+    return build_post_list(build_feed, file_names, count)
+
+
+def render_post_list(file_names, template, count):
+    def render_mustache_page_for_template(posts):
+        return render_mustache_page(template, {'posts': posts})
+    return build_post_list(render_mustache_page_for_template, file_names, count)
+
+
+def render_markdown_page(input_file, template_file):
+    content = markdown_content.from_file(input_file)
+    return render_mustache_page(template_file, content)
+
+
+def render_mustache_page(template, content={}):
+    template = file_util.read_file(template)
+    mustache_renderer = pystache.Renderer(search_dirs=partials_dir(template),
+                                          file_encoding="utf8")
+    return mustache_renderer.render(template, common_data(content))
+
+
+def build_feed(posts):
     feed = AtomFeed(title=config.feed_title(),
                     subtitle=config.feed_subtitle(),
                     feed_url=config.feed_url(),
                     author=config.author(),
                     url=config.feed_url())
-
-    posts = map(from_file, files)
-    for post in no_drafts(sorted_posts(posts)):
+    for post in (posts):
         try:
             feed.add(title=post['title'],
                      content=post['content'],
@@ -31,23 +50,13 @@ def render_atom_feed(files):
     return feed.to_string()
 
 
-def render_post_list(file_names, template, count):
-    posts = limit(
-        no_drafts(
-            sorted_posts(map(html_content.from_file, file_names))), count)
-    return render_mustache_page(template, {'posts': posts})
+def build_post_list(func, file_names, count):
+    posts = cleaned_up_list(map(html_content.from_file, file_names), count)
+    return func(posts)
 
 
-def render_markdown_page(input_file, template_file):
-    content = markdown_content.from_file(input_file)
-    return render_mustache_page(template_file, content)
-
-
-def render_mustache_page(template, content={}):
-    template = file_util.read_file(template)
-    mustache_renderer = pystache.Renderer(search_dirs=partials_dir(template),
-                                          file_encoding="utf8")
-    return mustache_renderer.render(template, common_data(content))
+def cleaned_up_list(posts, list_length=0):
+    return limit(no_drafts(sorted_posts(posts)), list_length)
 
 
 def sorted_posts(posts):
