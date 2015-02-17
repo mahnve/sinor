@@ -31,5 +31,3 @@ def test_default_partial_dir():
 def test_selects_config_partial_dir():
     config.build_partials_dir = Mock(return_value="/bar")
     assert_equals(posts.partials_dir("/foo/bar.mustache"), "/bar")
-
-

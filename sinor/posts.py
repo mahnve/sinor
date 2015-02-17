@@ -1,8 +1,34 @@
 from sinor import markdown_content, html_content, file_util
-from datetime import date
+from datetime import date, datetime
 import pystache
 from sinor.config import config
 from os.path import dirname
+from pyatom import AtomFeed
+from sinor.html_content import from_file
+import sys
+
+
+def render_atom_feed(files):
+    feed = AtomFeed(title=config.feed_title(),
+                    subtitle=config.feed_subtitle(),
+                    feed_url=config.feed_url(),
+                    author=config.author(),
+                    url=config.feed_url())
+
+    posts = map(from_file, files)
+    for post in no_drafts(sorted_posts(posts)):
+        try:
+            feed.add(title=post['title'],
+                     content=post['content'],
+                     author=config.author(),
+                     url=post['absolute_url'],
+                     updated=datetime.strptime(post['date'],
+                                               config.blog_date_format()).date())
+        except:
+            print('Failed adding post {} to feed'.format(post))
+            sys.exit(-1)
+
+    return feed.to_string()
 
 
 def render_post_list(file_names, template, count):

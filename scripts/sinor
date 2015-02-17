@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from sinor import feed, posts
+from sinor import posts
 from sinor.config import config
 import argparse
 
@@ -12,7 +12,7 @@ def render_single():
 
 
 def render_feed():
-    print(feed.render_atom_feed(args.content_files).encode('utf_8'))
+    print(posts.render_atom_feed(args.content_files).encode('utf_8'))
 
 
 def render_archive():
