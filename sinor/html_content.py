@@ -9,21 +9,21 @@ EMPTY_RESULT = {'title': '',
                 'status': ''}
 
 
-def get_text_value(html, id_name):
-    tags = find_id_nodes(html, id_name)
+def _get_text_value(html, id_name):
+    tags = _find_id_nodes(html, id_name)
     if(len(tags) > 0):
         return tags[0].text
     else:
         return ''
 
 
-def find_id_nodes(html, id_name):
+def _find_id_nodes(html, id_name):
     xpath_expression = "//*[contains(@id, '{}')]".format(id_name)
     return html.xpath(xpath_expression)
 
 
-def get_sub_tree(html, id_name):
-    tags = find_id_nodes(html, id_name)
+def _get_sub_tree(html, id_name):
+    tags = _find_id_nodes(html, id_name)
     if(len(tags) > 0):
         return etree.tostring(tags[0])
     else:
@@ -42,14 +42,14 @@ def from_string(html_string, to_return={}):
         html = lxml.html.document_fromstring(html_string)
     except:
         return EMPTY_RESULT
-    to_return['title'] = get_text_value(html, 'post-title')
-    to_return['date'] = get_text_value(html, 'post-date')
-    to_return['content'] = get_sub_tree(html, 'post-content')
-    to_return['status'] = status(html)
+    to_return['title'] = _get_text_value(html, 'post-title')
+    to_return['date'] = _get_text_value(html, 'post-date')
+    to_return['content'] = _get_sub_tree(html, 'post-content')
+    to_return['status'] = _status(html)
     return to_return
 
 
-def status(html):
+def _status(html):
     xpath_expression = "//*[contains(@class, 'draft')]"
     if len(html.xpath(xpath_expression)) == 0:
         return 'published'
