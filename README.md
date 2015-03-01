@@ -24,7 +24,9 @@ static content, should you have it.
 
 ### Stable
 
-TODO
+```shell
+pip install sinor
+```
 
 ### Get the latest
 
