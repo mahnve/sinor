@@ -5,6 +5,7 @@ class MarkdownPostBuilder:
         self.status = ''
         self.title = 'Title not set'
         self.date = ''
+        self.tags = {}
 
     def with_content(self, content=""):
         self.content = content
@@ -21,11 +22,15 @@ class MarkdownPostBuilder:
     def with_date(self, date=''):
         self.date = date
 
+    def with_tags(self, tags={}):
+        self.tags = tags
+
     def build(self):
         return {'content': self.content,
                 'status': self.status,
                 'date': self.date,
-                'title': self.title}
+                'title': self.title,
+                'tags': self.tags}
 
 
 class HTMLContentBuilder:
