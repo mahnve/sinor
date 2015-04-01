@@ -15,6 +15,10 @@ def render_feed():
     print(posts.render_atom_feed(args.content_files).encode('utf_8'))
 
 
+def render_tag_list():
+    print(posts.render_tag_list(args.content_files)).encode('utf_8')
+
+
 def render_archive():
     print(posts.render_post_list(args.content_files,
                                  args.template,
@@ -33,7 +37,8 @@ if(__name__ == "__main__"):
                         default='sinor.toml')
 
     parser.add_argument("--type",
-                        choices=['single', 'feed', 'archive', 'mustache'],
+                        choices=['single', 'feed', 'archive',
+                                 'mustache', 'tag-list'],
                         default="single")
 
     parser.add_argument("--template",
@@ -52,6 +57,7 @@ if(__name__ == "__main__"):
     commands = {'single': render_single,
                 'feed': render_feed,
                 'archive': render_archive,
-                'mustache': render_mustache}
+                'mustache': render_mustache,
+                'tag-list': render_tag_list}
 
     commands[args.type]()

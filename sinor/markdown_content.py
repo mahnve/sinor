@@ -17,7 +17,7 @@ def from_string(content):
             'title': _single_meta_data_value(meta_data, 'title'),
             'status': _draft_status(meta_data),
             'date': _single_meta_data_value(meta_data, 'date'),
-            'tags': _single_meta_data_value(meta_data, 'tags')}
+            'tags': meta_data.get('tags', [''])}
 
 
 def _single_meta_data_value(dictionary, key):
