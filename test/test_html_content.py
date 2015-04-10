@@ -8,7 +8,8 @@ def test_parse_empty_string():
     assert_equals(html_content.from_string(html), {'title': '',
                                                    'date': '',
                                                    'content': '',
-                                                   'status': ''})
+                                                   'status': '',
+                                                   'tags': []})
 
 
 def test_finds_a_post_title_class():
@@ -34,9 +35,16 @@ def test_multihtml():
                    '<div id="post-content"><p>Hej</p></div>',
                    'title': 'Foo',
                    'date': '2010-01-01',
-                   'status': 'draft'})
+                   'status': 'draft',
+                   'tags': []})
 
 
 def test_draft():
     html = HTMLContentBuilder().with_draft_status().build()
     assert_equals(html_content.from_string(html)['status'], 'draft')
+
+
+def test_finds_list():
+    html = HTMLContentBuilder().with_content(
+        '<ul id="post-tags"><li>foo</li><li>bar</li></ul>').build()
+    assert_equals(html_content.from_string(html)['tags'], ['foo', 'bar'])

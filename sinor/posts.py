@@ -14,7 +14,9 @@ def render_atom_feed(file_names, count=0):
 def render_post_list(file_names, template, count):
     def render_mustache_page_for_template(posts):
         return render_mustache_page(template, {'posts': posts})
-    return build_post_list(render_mustache_page_for_template, file_names, count)
+    return build_post_list(render_mustache_page_for_template,
+                           file_names,
+                           count)
 
 
 def render_markdown_page(input_file, template_file):

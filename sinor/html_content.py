@@ -6,28 +6,38 @@ from sinor import file_util
 EMPTY_RESULT = {'title': '',
                 'date': '',
                 'content': '',
-                'status': ''}
+                'status': '',
+                'tags': []}
 
 
 def _get_text_value(html, id_name):
-    tags = _find_id_nodes(html, id_name)
-    if(len(tags) > 0):
-        return tags[0].text
-    else:
-        return ''
+    return _extract_data(html,
+                         id_name,
+                         lambda t: t.text,
+                         '')
 
 
-def _find_id_nodes(html, id_name):
-    xpath_expression = "//*[contains(@id, '{}')]".format(id_name)
-    return html.xpath(xpath_expression)
+def _get_list(html, id_name):
+    return _extract_data(html,
+                         id_name,
+                         lambda t: [li.text for li in t],
+                         [])
 
 
 def _get_sub_tree(html, id_name):
-    tags = _find_id_nodes(html, id_name)
-    if(len(tags) > 0):
-        return etree.tostring(tags[0])
+    return _extract_data(html,
+                         id_name,
+                         lambda t: etree.tostring(t),
+                         [])
+
+
+def _extract_data(html, id_name,  method, none_value):
+    tag = html.get_element_by_id(id_name, None)
+    if(tag is not None):
+        return method(tag)
     else:
-        return ''
+        return []
+
 
 
 def from_file(file_name):
@@ -46,6 +56,7 @@ def from_string(html_string, to_return={}):
     to_return['date'] = _get_text_value(html, 'post-date')
     to_return['content'] = _get_sub_tree(html, 'post-content')
     to_return['status'] = _status(html)
+    to_return['tags'] = _get_list(html, 'post-tags')
     return to_return
 
 
