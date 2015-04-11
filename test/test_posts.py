@@ -38,4 +38,5 @@ def test_build_tags_list():
     b = {'tags': ['foo'], 'relative_url': '/url-2'}
 
     assert_equals(posts.build_tag_tree([a, b]),
-                  {'foo': ['/url-1', '/url-2'], 'bar': ['/url-1']})
+                  [{'name': 'foo', 'values': ['/url-1', '/url-2']},
+                   {'name': 'bar', 'values': ['/url-1']}])

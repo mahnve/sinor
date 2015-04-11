@@ -59,12 +59,21 @@ def build_post_list(func, file_names, count):
 
 
 def build_tag_tree(posts):
-    result = {}
+    def get_tag_dict(tag_list, tag):
+        for candidate in tag_list:
+            if candidate['name'] == tag:
+                return candidate
+            else:
+                return None
+
+    result = []
     for post in posts:
         for tag in post['tags']:
-            if tag not in result:
-                result[tag] = []
-            result[tag].append(post['relative_url'])
+            tag_dict = get_tag_dict(result, tag)
+            if tag_dict:
+                tag_dict['values'].append(post['relative_url'])
+            else:
+                result.append({'name': tag, 'values': [post['relative_url']]})
     return result
 
 
