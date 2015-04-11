@@ -34,9 +34,10 @@ def test_selects_config_partial_dir():
 
 
 def test_build_tags_list():
-    a = PostDataBuilder().with_tags('foo', 'bar').build()
-    b = PostDataBuilder().with_tags('foo').build()
+    a = PostDataBuilder().with_tags('foo', 'bar').with_title('a').build()
+    b = PostDataBuilder().with_tags('foo').with_title('b').build()
+    c = PostDataBuilder().with_tags('foo').with_title('c').build()
 
-    assert_list_equal(posts.build_tag_tree([a, b]),
-                      [{'name': 'foo', 'values': [a, b]},
+    assert_list_equal(posts.build_tag_tree([a, b, c]),
+                      [{'name': 'foo', 'values': [a, b, c]},
                        {'name': 'bar', 'values': [a]}])

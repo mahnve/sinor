@@ -54,8 +54,9 @@ def build_feed(post_data):
 
 def build_post_list(func, file_names, count):
     posts = cleaned_up_list(map(html_content.from_file, file_names), count)
+    tags = build_tag_tree(posts)
     return func({'posts': posts,
-                 'tags': build_tag_tree(posts)})
+                 'tags': tags})
 
 
 def build_tag_tree(posts):
