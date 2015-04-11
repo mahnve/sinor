@@ -6,6 +6,7 @@ class PostDataBuilder:
         self.title = 'Title not set'
         self.date = ''
         self.tags = {}
+        self.relative_url = ''
 
     def with_content(self, content=""):
         self.content = content
@@ -21,15 +22,18 @@ class PostDataBuilder:
 
     def with_date(self, date=''):
         self.date = date
+        return self
 
     def with_tags(self, *tags):
         self.tags = tags
+        return self
 
     def build(self):
         return {'content': self.content,
                 'status': self.status,
                 'date': self.date,
                 'title': self.title,
+                'relative_url': self.relative_url,
                 'tags': self.tags}
 
 

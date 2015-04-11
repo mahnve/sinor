@@ -71,9 +71,9 @@ def build_tag_tree(posts):
         for tag in post['tags']:
             tag_dict = get_tag_dict(result, tag)
             if tag_dict:
-                tag_dict['values'].append(post['relative_url'])
+                tag_dict['values'].append(post)
             else:
-                result.append({'name': tag, 'values': [post['relative_url']]})
+                result.append({'name': tag, 'values': [post]})
     return result
 
 

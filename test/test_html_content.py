@@ -29,7 +29,7 @@ def test_finds_post_content():
 
 
 def test_multihtml():
-    html = HTMLContentBuilder().with_title('Foo').with_post_date('2010-01-01').with_content('<p>Hej</p>').with_draft_status().build()
+    html = HTMLContentBuilder().with_title('Foo').with_post_date('2010-01-01').with_content('<p>Hej</p>').with_draft_status().with_tags().build()
     assert_equals(html_content.from_string(html),
                   {'content':
                    '<div id="post-content"><p>Hej</p></div>',

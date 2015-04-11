@@ -1,4 +1,4 @@
-from nose.tools import assert_equals
+from nose.tools import assert_equals, assert_list_equal
 from sinor import posts
 from sinor.config import config
 from mock import Mock
@@ -34,9 +34,9 @@ def test_selects_config_partial_dir():
 
 
 def test_build_tags_list():
-    a = {'tags': ['foo', 'bar'], 'relative_url': '/url-1'}
-    b = {'tags': ['foo'], 'relative_url': '/url-2'}
+    a = PostDataBuilder().with_tags('foo', 'bar').build()
+    b = PostDataBuilder().with_tags('foo').build()
 
-    assert_equals(posts.build_tag_tree([a, b]),
-                  [{'name': 'foo', 'values': [{'relative_url': '/url-1', '/url-2']},
-                   {'name': 'bar', 'values': ['/url-1']}])
+    assert_list_equal(posts.build_tag_tree([a, b]),
+                      [{'name': 'foo', 'values': [a, b]},
+                       {'name': 'bar', 'values': [a]}])
