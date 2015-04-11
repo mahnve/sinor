@@ -12,8 +12,8 @@ def render_atom_feed(file_names, count=0):
 
 
 def render_post_list(file_names, template, count):
-    def render_mustache_page_for_template(posts):
-        return render_mustache_page(template, {'posts': posts})
+    def render_mustache_page_for_template(post_data):
+        return render_mustache_page(template, post_data)
     return build_post_list(render_mustache_page_for_template,
                            file_names,
                            count)
@@ -31,13 +31,13 @@ def render_mustache_page(template, content={}):
     return mustache_renderer.render(template, common_data(content))
 
 
-def build_feed(posts):
+def build_feed(post_data):
     feed = AtomFeed(title=config.feed_title(),
                     subtitle=config.feed_subtitle(),
                     feed_url=config.feed_url(),
                     author=config.author(),
                     url=config.feed_url())
-    for post in (posts):
+    for post in post_data['posts']:
         try:
             feed.add(title=post['title'],
                      content=post['content'],
@@ -54,7 +54,18 @@ def build_feed(posts):
 
 def build_post_list(func, file_names, count):
     posts = cleaned_up_list(map(html_content.from_file, file_names), count)
-    return func(posts)
+    return func({'posts': posts,
+                 'tags': build_tag_tree(posts)})
+
+
+def build_tag_tree(posts):
+    result = {}
+    for post in posts:
+        for tag in post['tags']:
+            if tag not in result:
+                result[tag] = []
+            result[tag].append(post['relative_url'])
+    return result
 
 
 def cleaned_up_list(posts, list_length=0):

@@ -28,7 +28,7 @@ def _get_sub_tree(html, id_name):
     return _extract_data(html,
                          id_name,
                          lambda t: etree.tostring(t),
-                         [])
+                         '')
 
 
 def _extract_data(html, id_name,  method, none_value):
@@ -36,8 +36,7 @@ def _extract_data(html, id_name,  method, none_value):
     if(tag is not None):
         return method(tag)
     else:
-        return []
-
+        return none_value
 
 
 def from_file(file_name):

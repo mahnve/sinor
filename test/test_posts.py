@@ -6,9 +6,9 @@ from data_builder import MarkdownPostBuilder
 
 
 def test_draft():
-    a = MarkdownPostBuilder().with_status('draft').build()
-    b = MarkdownPostBuilder().with_status('published').build()
-    assert_equals(posts.no_drafts([a, b]), [b])
+    draft = MarkdownPostBuilder().with_status('draft').build()
+    published = MarkdownPostBuilder().with_status('published').build()
+    assert_equals(posts.no_drafts([draft, published]), [published])
 
 
 def test_limit_count():
@@ -31,3 +31,11 @@ def test_default_partial_dir():
 def test_selects_config_partial_dir():
     config.build_partials_dir = Mock(return_value="/bar")
     assert_equals(posts.partials_dir("/foo/bar.mustache"), "/bar")
+
+
+def test_build_tags_list():
+    a = {'tags': ['foo', 'bar'], 'relative_url': '/url-1'}
+    b = {'tags': ['foo'], 'relative_url': '/url-2'}
+
+    assert_equals(posts.build_tag_tree([a, b]),
+                  {'foo': ['/url-1', '/url-2'], 'bar': ['/url-1']})
