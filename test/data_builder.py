@@ -1,4 +1,4 @@
-class MarkdownPostBuilder:
+class PostDataBuilder:
 
     def __init__(self):
         self.content = 'Content not set'
@@ -22,7 +22,7 @@ class MarkdownPostBuilder:
     def with_date(self, date=''):
         self.date = date
 
-    def with_tags(self, tags={}):
+    def with_tags(self, *tags):
         self.tags = tags
 
     def build(self):
@@ -41,6 +41,7 @@ class HTMLContentBuilder:
         self.title = ''
         self.content = ''
         self.status = ''
+        self.tags = ''
 
     def with_post_date(self, date):
         self.post_date = "<div id='post-date'>{}</div>".format(date)
@@ -56,6 +57,14 @@ class HTMLContentBuilder:
 
     def with_content(self, content):
         self.content = "<div id=post-content>{}</div>".format(content)
+        return self
+
+    def with_tags(self, *tags):
+
+        start_tag = '<ul id="post-tags">'
+        lis = reduce(lambda t: "<li>{}</li>".format(t), tags, '')
+        end_tag = '</ul>'
+        self.tags = start_tag + lis + end_tag
         return self
 
     def build(self):

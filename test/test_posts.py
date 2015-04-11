@@ -2,23 +2,23 @@ from nose.tools import assert_equals
 from sinor import posts
 from sinor.config import config
 from mock import Mock
-from data_builder import MarkdownPostBuilder
+from data_builder import PostDataBuilder
 
 
 def test_draft():
-    draft = MarkdownPostBuilder().with_status('draft').build()
-    published = MarkdownPostBuilder().with_status('published').build()
+    draft = PostDataBuilder().with_status('draft').build()
+    published = PostDataBuilder().with_status('published').build()
     assert_equals(posts.no_drafts([draft, published]), [published])
 
 
 def test_limit_count():
-    a = b = c = d = MarkdownPostBuilder().build()
+    a = b = c = d = PostDataBuilder().build()
     plist = [a, b, c, d]
     assert_equals([a, b], posts.limit(plist, 2))
 
 
 def test_limit_negative_count():
-    a = b = c = d = MarkdownPostBuilder().build()
+    a = b = c = d = PostDataBuilder().build()
     post_list = [a, b, c, d]
     assert_equals(post_list, posts.limit(post_list, -1))
 
@@ -38,5 +38,5 @@ def test_build_tags_list():
     b = {'tags': ['foo'], 'relative_url': '/url-2'}
 
     assert_equals(posts.build_tag_tree([a, b]),
-                  [{'name': 'foo', 'values': ['/url-1', '/url-2']},
+                  [{'name': 'foo', 'values': [{'relative_url': '/url-1', '/url-2']},
                    {'name': 'bar', 'values': ['/url-1']}])
