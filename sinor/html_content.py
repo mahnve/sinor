@@ -18,9 +18,10 @@ def _get_text_value(html, id_name):
 
 
 def _get_list(html, id_name):
+
     return _extract_data(html,
                          id_name,
-                         lambda t: [li.text for li in t],
+                         lambda t: [li.xpath("string()") for li in t if li.xpath("string()")],
                          [])
 
 
