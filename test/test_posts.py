@@ -34,10 +34,26 @@ def test_selects_config_partial_dir():
 
 
 def test_build_tags_list():
-    a = PostDataBuilder().with_tags('foo', 'bar').with_title('a').build()
+    a = PostDataBuilder().with_tags('bar', 'foo').with_title('a').build()
     b = PostDataBuilder().with_tags('foo').with_title('b').build()
     c = PostDataBuilder().with_tags('foo').with_title('c').build()
+    d = PostDataBuilder().with_tags().with_title('d').build()
+    tag_tree = posts.build_tag_tree([a, b, c, d])
 
-    assert_list_equal(posts.build_tag_tree([a, b, c]),
-                      [{'name': 'foo', 'values': [a, b, c]},
-                       {'name': 'bar', 'values': [a]}])
+    assert_equals(3,
+                  len(posts.get_tag_dict(tag_tree, 'foo')['values']))
+
+    assert_equals(1,
+                  len(posts.get_tag_dict(tag_tree, 'bar')['values']))
+
+
+def test_tag_list_is_sorted():
+    b = PostDataBuilder().with_tags('foo').with_title('b').build()
+    a = PostDataBuilder().with_tags('bar', 'foo').with_title('a').build()
+    c = PostDataBuilder().with_tags('foo', 'aaa').with_title('c').build()
+    d = PostDataBuilder().with_tags().with_title('d').build()
+    tag_tree = posts.build_tag_tree([a, b, c, d])
+
+    assert_equals(tag_tree[0]['name'], 'aaa')
+    assert_equals(tag_tree[1]['name'], 'bar')
+    assert_equals(tag_tree[2]['name'], 'foo')

@@ -5,7 +5,7 @@ class PostDataBuilder:
         self.status = ''
         self.title = 'Title not set'
         self.date = ''
-        self.tags = {}
+        self.tags = []
         self.relative_url = ''
 
     def with_content(self, content=""):

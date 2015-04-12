@@ -44,7 +44,25 @@ def test_draft():
     assert_equals(html_content.from_string(html)['status'], 'draft')
 
 
-def test_finds_list():
+def test_finds_tags():
     html = HTMLContentBuilder().with_content(
         '<ul id="post-tags"><li>foo</li><li>bar</li></ul>').build()
     assert_equals(html_content.from_string(html)['tags'], ['foo', 'bar'])
+
+
+def test_finds_tags_in_contained_tags():
+    html = HTMLContentBuilder().with_content(
+        '<ul id="post-tags"><li><p>foo</p></li></ul>').build()
+    assert_equals(html_content.from_string(html)['tags'], ['foo'])
+
+
+def test_finds_empty_tags():
+    html = HTMLContentBuilder().with_content(
+        '<ul id="post-tags"></ul>').build()
+    assert_equals(html_content.from_string(html)['tags'], [])
+
+
+def test_handles_empty_li_tags():
+    html = HTMLContentBuilder().with_content(
+        '<ul id="post-tags"><li></li></ul>').build()
+    assert_equals(html_content.from_string(html)['tags'], [])

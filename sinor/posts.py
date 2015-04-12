@@ -59,13 +59,14 @@ def build_post_list(func, file_names, count):
                  'tags': tags})
 
 
+def get_tag_dict(tag_list, tag_name):
+    for candidate in tag_list:
+        if candidate['name'] == tag_name:
+            return candidate
+    return None
+
+
 def build_tag_tree(posts):
-    def get_tag_dict(tag_list, tag):
-        for candidate in tag_list:
-            if candidate['name'] == tag:
-                return candidate
-            else:
-                return None
 
     result = []
     for post in posts:
@@ -73,9 +74,10 @@ def build_tag_tree(posts):
             tag_dict = get_tag_dict(result, tag)
             if tag_dict:
                 tag_dict['values'].append(post)
+                tag_dict['values'].sort(key=lambda p: p['date'])
             else:
                 result.append({'name': tag, 'values': [post]})
-    return result
+    return sorted(result, key=lambda p: p['name'])
 
 
 def cleaned_up_list(posts, list_length=0):
