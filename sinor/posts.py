@@ -59,10 +59,10 @@ def build_post_list(func, file_names, count, markdown_file=None):
     if markdown_file:
         content = markdown_content.from_file(markdown_file)
     else:
-        content = None
-    return func({'posts': posts,
-                 'tags': tags,
-                 'content': content})
+        content = {}
+    return func(dict({'posts': posts,
+                      'tags': tags},
+                     **content))
 
 
 def get_tag_dict(tag_list, tag_name):

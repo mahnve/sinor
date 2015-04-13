@@ -39,7 +39,7 @@ pip install git+git://github.com/mahnve/sinor.git
 Syntax:
 
 ```shell
-sinor --type single --template template.mustache input.markdown > output.html
+sinor single --template template.mustache --markdown_content input.markdown > output.html
 ```
 
 ### Metadata
@@ -87,7 +87,7 @@ Example template for single post page:
 Syntax:
 
 ```shell
-sinor --type feed html1.html html2.html > atom.xml
+sinor feed --html_content html1.html html2.html > atom.xml
 ```
 
 Sinor generates atom feeds from HTML files. In order to extract meta data from the HTML some id's must be declared:
@@ -116,7 +116,7 @@ Example HTML file that can be parsed to atom feed
 Syntax:
 
 ```
-sinor --type archive --limit 5 --template template.mustache html1.html html2.html > output.html
+sinor archive --limit 5 --template template.mustache --html_content html1.html html2.html > output.html
 ```
 
 Sinor generates archive files just like it does atom feeds - by parsing HTML. The same id's must be declared etc. URL's are generated the same way to.
@@ -182,7 +182,7 @@ Sinor can convert Mustache files into HTML - and passes the standard meta data d
 Example:
 
 ```shell
-sinor --type mustache foo.mustache > out.html
+sinor mustache --template foo.mustache > out.html
 ```
 
 ## sinor.toml Config
@@ -245,7 +245,7 @@ POST_BUILD_FILES = $(patsubst site_src/blog/%.markdown, $(BUILD_DIR)/blog/%.html
 TEMPLATE_FILES = $(shell find site_src/templates -iname "*.mustache")
 $(BUILD_DIR)/blog/%.html: site_src/blog/%.markdown $(TEMPLATE_FILES)
 	@mkdir -p "$(@D)"
-	sinor --type single --template site_src/templates/blog.mustache $< > $@
+    sinor single --template site_src/templates/blog.mustache --markdown_content $< > $@
 ```
 
 ## Future Development

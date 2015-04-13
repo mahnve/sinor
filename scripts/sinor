@@ -23,7 +23,7 @@ def render_archive():
 
 
 def render_mustache():
-    print(posts.render_mustache_page(args.content_files[0]).encode('utf_8'))
+    print(posts.render_mustache_page(args.template).encode('utf_8'))
 
 if(__name__ == "__main__"):
     parser = argparse.ArgumentParser(
@@ -33,7 +33,7 @@ if(__name__ == "__main__"):
                         help='path to config file',
                         default='sinor.toml')
 
-    parser.add_argument("--type",
+    parser.add_argument("type",
                         choices=['single', 'feed',
                                  'archive', 'mustache'],
                         default="single")
