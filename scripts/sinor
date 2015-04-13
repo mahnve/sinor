@@ -18,7 +18,8 @@ def render_feed():
 def render_archive():
     print(posts.render_post_list(args.html_content,
                                  args.template,
-                                 args.limit).encode('utf_8'))
+                                 args.limit,
+                                 args.markdown_content).encode('utf_8'))
 
 
 def render_mustache():

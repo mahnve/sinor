@@ -11,12 +11,13 @@ def render_atom_feed(file_names, count=0):
     return build_post_list(build_feed, file_names, count)
 
 
-def render_post_list(file_names, template, count):
+def render_post_list(file_names, template, count, markdown_file=None):
     def render_mustache_page_for_template(post_data):
         return render_mustache_page(template, post_data)
     return build_post_list(render_mustache_page_for_template,
                            file_names,
-                           count)
+                           count,
+                           markdown_file)
 
 
 def render_markdown_page(input_file, template_file):
@@ -52,11 +53,16 @@ def build_feed(post_data):
     return feed.to_string()
 
 
-def build_post_list(func, file_names, count):
+def build_post_list(func, file_names, count, markdown_file=None):
     posts = cleaned_up_list(map(html_content.from_file, file_names), count)
     tags = build_tag_tree(posts)
+    if markdown_file:
+        content = markdown_content.from_file(markdown_file)
+    else:
+        content = None
     return func({'posts': posts,
-                 'tags': tags})
+                 'tags': tags,
+                 'content': content})
 
 
 def get_tag_dict(tag_list, tag_name):
