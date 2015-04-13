@@ -152,8 +152,8 @@ The resulting tag datastructure looks like this:
 
 ```Python
 [
-  {'name': 'foo', [ ... list of posts tagged with foo ... ]}
-  {'name': 'bar', [ ... list of posts tagged with bar ... ]}
+  {'name': 'foo', 'posts': [ ... list of posts tagged with foo ... ]}
+  {'name': 'bar', 'posts': [ ... list of posts tagged with bar ... ]}
 ]
 ```
 
@@ -165,12 +165,12 @@ which is available to a mustache template and can be used like this:
     <dt id="{{name}}">
       {{name}}
     </dt>
-    {{#values}}
+    {{#posts}}
       <dd>
         <date>{{date}}</date>
         <a href="{{relative_url}}">{{title}}</a>
       </dd>
-    {{/values}}
+    {{/posts}}
   {{/tags}}
 </ol>
 ```
