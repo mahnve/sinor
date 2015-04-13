@@ -40,7 +40,7 @@ def test_build_tags_list():
     d = PostDataBuilder().with_tags().with_title('d').build()
     tag_tree = posts.build_tag_tree([a, b, c, d])
 
-    assert_equals(3,c
+    assert_equals(3,
                   len(posts.get_tag_dict(tag_tree, 'foo')['posts']))
 
     assert_equals(1,
