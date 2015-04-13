@@ -136,6 +136,42 @@ Example template for archive post page:
 </ol>
 ```
 
+### Tags
+
+Sinor parses tags and provides them to the template along with the posts. Tags should be available in a list with the id "post-tags", with text content somewhere in the ```li```'s
+
+Example
+
+```HTML
+<ol id="post-tags">
+  <li><a href="/tags.html#foo">foo</a></li>
+</ol>
+```
+
+The resulting tag datastructure looks like this:
+
+```Python
+[{'name': 'foo', [ ... list of posts ... ]}]
+```
+
+which is available to a mustache template and can be used like this:
+
+```Mustache
+<dl class='vertical-list'>
+  {{#tags}}
+    <dt id="{{name}}">
+      {{name}}
+    </dt>
+    {{#values}}
+      <dd>
+        <date>{{date}}</date>
+        <a href="{{relative_url}}">{{title}}</a>
+      </dd>
+    {{/values}}
+  {{/tags}}
+</ol>
+```
+
 ## Convert Mustache files
 
 Sinor can convert Mustache files into HTML - and passes the standard meta data described above into the templates.
