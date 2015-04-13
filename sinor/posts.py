@@ -74,7 +74,7 @@ def build_tag_tree(posts):
             tag_dict = get_tag_dict(result, tag)
             if tag_dict:
                 tag_dict['values'].append(post)
-                tag_dict['values'].sort(key=lambda p: p['date'])
+                tag_dict['values'].sort(key=lambda p: p['date'], reverse=True)
             else:
                 result.append({'name': tag, 'values': [post]})
     return sorted(result, key=lambda p: p['name'])
