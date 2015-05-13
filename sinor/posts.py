@@ -1,5 +1,6 @@
 from sinor import markdown_content, html_content, file_util
 from datetime import date, datetime
+from string import replace
 import pystache
 from sinor.config import config
 from os.path import dirname
@@ -41,7 +42,7 @@ def build_feed(post_data):
     for post in post_data['posts']:
         try:
             feed.add(title=post['title'],
-                     content=post['content'],
+                     content=replace_relative_with_absolute_urls(post['content']),
                      author=config.author(),
                      url=post['absolute_url'],
                      updated=datetime.strptime(post['date'],
@@ -110,6 +111,26 @@ def is_not_draft(post):
         return post['status'] != 'draft'
     else:
         return True
+
+
+def replace_rel_hrefs_with_abs_urls(html, base_url):
+    return _replace_rel_with_abs_urls_for_attr(html, 'href', base_url)
+
+
+def replace_rel_srcs_with_abs_urls(html, base_url):
+    return _replace_rel_with_abs_urls_for_attr(html, 'src', base_url)
+
+
+def _replace_rel_with_abs_urls_for_attr(html, attr, base_url):
+    return replace(html,
+                   '{}=\"/'.format(attr),
+                   '{}=\"{}/'.format(attr, base_url))
+
+
+def replace_relative_with_absolute_urls(html_content):
+    replaced_hrefs = replace_rel_srcs_with_abs_urls(html_content,
+                                                    config.blog_url())
+    return replace_rel_hrefs_with_abs_urls(replaced_hrefs, config.blog_url())
 
 
 def common_data(to_merge={}):
