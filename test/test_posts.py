@@ -62,12 +62,12 @@ def test_tag_list_is_sorted():
 def test_convert_relative_urls():
     html = '<a href="/foo">link</a>'
     assert_equals('<a href="http://bar.com/foo">link</a>',
-                  posts._replace_rel_hrefs_with_abs_urls(html,
-                                                         "http://bar.com"))
+                  posts.replace_rel_hrefs_with_abs_urls(html,
+                                                        "http://bar.com"))
 
 
 def test_convert_relative_img_src():
     html = '<a><img src="/foo.png"/></a>'
     assert_equals('<a><img src="http://bar.com/foo.png"/></a>',
-                  posts._replace_rel_srcs_with_abs_urls(html,
-                                                        "http://bar.com"))
+                  posts.replace_rel_srcs_with_abs_urls(html,
+                                                       "http://bar.com"))

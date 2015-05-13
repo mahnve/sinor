@@ -29,5 +29,5 @@ def test_gets_draft():
 
 def test_gets_tags():
     assert_equals(markdown_content.from_string(
-        "title: hej \ntags: foo\n      bar\ndraft: true")['tags'],
+        "title: hej\ndate: 2014-10-01\ntags: foo\n      bar\ndraft: true")['tags'],
         ['foo', 'bar'])

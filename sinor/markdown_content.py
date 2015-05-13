@@ -20,13 +20,20 @@ def from_string(content):
             'tags': meta_data.get('tags', [''])}
 
 
-def _single_meta_data_value(dictionary, key):
-    value_list = dictionary.get(key, [''])
+def _single_meta_data_value(dictionary, key, default=None):
+    value_list = dictionary.get(key, [default])
+    if value_list == [None]:
+        raise KeyError(
+            "Could not find key '{}' in dict '{}'".format(key,
+                                                          dictionary))
     return value_list[0]
 
 
 def _draft_status(meta_data):
-    if _single_meta_data_value(meta_data, 'draft') in ('true', 'True'):
+    if _single_meta_data_value(meta_data,
+                               'draft',
+                               'false') in ('true',
+                                            'True'):
         return 'draft'
     else:
         return 'published'
