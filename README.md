@@ -46,7 +46,8 @@ sinor single --template template.mustache --markdown_content input.markdown > ou
 
 Sinor expects a few metadata fields in every Markdown file:
 
-* ```date``` - the date the post is published.
+* ```date``` - the date the post is published. It can also be set to
+  'date-rendered' which sets it to the date the page is rendered.
 * ```title``` - the title of the post.
 * ```draft``` (optional) - whether or not the post is to be rendered
 

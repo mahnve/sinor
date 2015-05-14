@@ -1,10 +1,19 @@
 import markdown
 from sinor import file_util
+from datetime import date
 
 
 def from_file(content_file):
     content = file_util.read_file(content_file)
     return from_string(content)
+
+
+def get_date(meta_data):
+    set_value = _single_meta_data_value(meta_data, 'date')
+    if set_value == 'date-rendered':
+        return date.today().strftime("%Y-%m-%d")
+    else:
+        return set_value
 
 
 def from_string(content):
@@ -16,7 +25,7 @@ def from_string(content):
     return {'content': html,
             'title': _single_meta_data_value(meta_data, 'title'),
             'status': _draft_status(meta_data),
-            'date': _single_meta_data_value(meta_data, 'date'),
+            'date': get_date(meta_data),
             'tags': meta_data.get('tags', [''])}
 
 

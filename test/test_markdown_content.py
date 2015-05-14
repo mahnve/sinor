@@ -1,5 +1,5 @@
 from sinor import markdown_content
-import data_builder
+from datetime import date
 from nose.tools import assert_equals
 
 
@@ -13,6 +13,13 @@ def test_gets_date():
     assert_equals(markdown_content.from_string(
         "title: hej \n date: 2014-10-01 \n\n Hej")['date'],
         "2014-10-01")
+
+
+def test_gets_render_time_date():
+    assert_equals(
+        markdown_content.from_string(
+            "title: hej \n date: date-rendered \n\n Hej")['date'],
+        date.today().strftime('%Y-%m-%d'))
 
 
 def test_gets_content():
