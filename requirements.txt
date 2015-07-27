@@ -9,3 +9,4 @@ lxml
 toml
 mock
 codecov
+rednose
