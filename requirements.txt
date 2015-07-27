@@ -8,3 +8,4 @@ setuptools
 lxml
 toml
 mock
+codecov
