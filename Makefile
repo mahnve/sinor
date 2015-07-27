@@ -8,3 +8,6 @@ install:
 
 test:
 	nosetests --rednose
+
+test-coverage:
+	nosetests --rednose --with-coverage --cover-xml

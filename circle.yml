@@ -3,6 +3,6 @@ dependencies:
     - make setup
 test:
   override:
-    - make test
+    - make test-coverage
   post:
     - codecov -t 54523bd9-4beb-433a-b258-76c51b347dd6
