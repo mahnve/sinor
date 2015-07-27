@@ -10,4 +10,4 @@ test:
 	nosetests --rednose
 
 test-coverage:
-	nosetests --rednose --with-coverage --cover-xml
+	nosetests --rednose --with-coverage --cover-xml --cover-package=sinor
