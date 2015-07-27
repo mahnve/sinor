@@ -91,7 +91,8 @@ Syntax:
 sinor feed --html_content html1.html html2.html > atom.xml
 ```
 
-Sinor generates atom feeds from HTML files. In order to extract meta data from the HTML some id's must be declared:
+Sinor generates atom feeds from HTML files. In order to extract meta data from
+the HTML some id's must be declared:
 
 * ```post-date```
 * ```post-title```
@@ -120,9 +121,11 @@ Syntax:
 sinor archive --limit 5 --template template.mustache --html_content html1.html html2.html > output.html
 ```
 
-Sinor generates archive files just like it does atom feeds - by parsing HTML. The same id's must be declared etc. URL's are generated the same way to.
+Sinor generates archive files just like it does atom feeds - by parsing
+HTML. The same id's must be declared etc. URL's are generated the same way to.
 
-The mustache template is given a map named ```posts``` which is used to generate the output.
+The mustache template is given a map named ```posts``` which is used to generate
+the output.
 
 Example template for archive post page:
 
@@ -139,7 +142,9 @@ Example template for archive post page:
 
 ### Tags
 
-Sinor parses tags and provides them to the template along with the posts. Tags should be available in a list with the id "post-tags", with text content somewhere in the ```li```'s
+Sinor parses tags and provides them to the template along with the posts. Tags
+should be available in a list with the id "post-tags", with text content
+somewhere in the ```li```'s
 
 Example
 
@@ -178,7 +183,8 @@ which is available to a mustache template and can be used like this:
 
 ## Convert Mustache files
 
-Sinor can convert Mustache files into HTML - and passes the standard meta data described above into the templates.
+Sinor can convert Mustache files into HTML - and passes the standard meta data
+described above into the templates.
 
 Example:
 
