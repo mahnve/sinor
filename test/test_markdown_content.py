@@ -38,3 +38,12 @@ def test_gets_tags():
     assert_equals(markdown_content.from_string(
         "title: hej\ndate: 2014-10-01\ntags: foo\n      bar\ndraft: true")['tags'],
         ['foo', 'bar'])
+
+
+def test_gets_og_image():
+    markdown_content.config={"blog": {"url": "http://foo.com"}}
+
+    assert_equals(markdown_content.from_string(
+        "title: hej\ndate: 2014-10-01\nog_image: /foo.png")['og_image'],
+                  "http://foo.com/foo/png"
+    )

@@ -1,5 +1,5 @@
 import markdown
-from sinor import file_util
+from sinor import file_util, config
 from datetime import date
 
 
@@ -26,7 +26,8 @@ def from_string(content):
             'title': _single_meta_data_value(meta_data, 'title'),
             'status': _draft_status(meta_data),
             'date': get_date(meta_data),
-            'tags': meta_data.get('tags', [''])}
+            'tags': meta_data.get('tags', ['']),
+            'og_image': _get_og_image(meta_data)}
 
 
 def _single_meta_data_value(dictionary, key, default=None):
