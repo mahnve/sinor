@@ -1,11 +1,11 @@
 import markdown
-from sinor import file_util, config
+from sinor import file_util
 from datetime import date
 
 
-def from_file(content_file):
+def from_file(content_file, base_url=''):
     content = file_util.read_file(content_file)
-    return from_string(content)
+    return from_string(content, base_url)
 
 
 def get_date(meta_data):
@@ -16,7 +16,15 @@ def get_date(meta_data):
         return set_value
 
 
-def from_string(content):
+def _get_og_image(meta_data, base_url=''):
+    og_image_setting = _single_meta_data_value(meta_data, 'og_image', '')
+    if og_image_setting.startswith('http'):
+        return og_image_setting
+    else:
+        return base_url + og_image_setting
+
+
+def from_string(content, base_url=''):
     md_converter = markdown.Markdown(extensions=['codehilite', 'meta'])
     html = md_converter.convert(content)
 
@@ -27,7 +35,7 @@ def from_string(content):
             'status': _draft_status(meta_data),
             'date': get_date(meta_data),
             'tags': meta_data.get('tags', ['']),
-            'og_image': _get_og_image(meta_data)}
+            'og_image': _get_og_image(meta_data, base_url)}
 
 
 def _single_meta_data_value(dictionary, key, default=None):

@@ -58,7 +58,7 @@ def build_post_list(func, file_names, count, markdown_file=None):
     posts = cleaned_up_list(map(html_content.from_file, file_names), count)
     tags = build_tag_tree(posts)
     if markdown_file:
-        content = markdown_content.from_file(markdown_file)
+        content = markdown_content.from_file(markdown_file, config.blog_url())
     else:
         content = {}
     return func(dict({'posts': posts,
